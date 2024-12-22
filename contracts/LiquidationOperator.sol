@@ -314,6 +314,13 @@ contract LiquidationOperator is IUniswapV2Callee {
         emit UniswapV2CallDetails(msg.sender, WBTC, WETH, amount1, amount2);
     }
 
+    // Function to perform liquidation on a user's position
+    function performLiquidation(uint256 amount) public {
+        IERC20(USDT).approve(AAVE_LENDING_POOL, type(uint256).max);
+        // Call the liquidation function
+        lendingPool.liquidationCall(WBTC, USDT, USER, amount, false);
+    }
+
     receive() external payable {}
 
     function LiquidationReward(uint256 amount_USDT)
@@ -595,13 +602,6 @@ contract LiquidationOperator is IUniswapV2Callee {
         depositWETH();
         uint256 balance = getWETHBalance();
         swap2(balance, WETH, USDT);
-    }
-
-    // Function to perform liquidation on a user's position
-    function performLiquidation(uint256 amount) public {
-        IERC20(USDT).approve(AAVE_LENDING_POOL, type(uint256).max);
-        // Call the liquidation function
-        lendingPool.liquidationCall(WBTC, USDT, USER, amount, false);
     }
 
     // Function to perform liquidation on a user's position
