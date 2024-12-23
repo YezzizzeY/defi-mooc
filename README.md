@@ -81,11 +81,20 @@ Then, calculate the amount out from **pair2**
 $$
 \text{Arbitrage} \; Output=\operatorname{getAmountOut}(l-r)
 \\
+\\
 in <WBTC, WETH>pair2
+\\ 
+=\frac{\text{(l-r)} \times (1 - \text{fee}) \times Reserve\_ WETH_{new}}{Reserve\_WBTC_{new} + \text{(l-r)} \times (1 - \text{fee})}
+\\
+\\
+=\frac{[\operatorname{Price}(W B T C / U S D T) \times L S \times \operatorname{getAmountOut(USDT)}(w)-\operatorname{getAmountIn(WBTC)}(w)] \times (1 - \text{fee}) \times (Reserve\_WETH_{original}-w)}{[Reserve\_WBTC_{original}+\operatorname{getAmountIn(WBTC)}(w))] + [\operatorname{Price}(W B T C / U S D T) \times L S \times \operatorname{getAmountOut(USDT)}(w)-\operatorname{getAmountIn(WBTC)}(w)]  \times (1 - \text{fee})}
 $$
 
+What we need to do is to **Maximize** **Arbitrage Output**, which is a non-linear function about WETH-To-Borrow `w`.
 
-What we need to do is to **Maximize** **Arbitrage Output**. This is implemented as **calculateArbitrage()** function in the smart contract, and used binary method to test within the maximum number of liquidation(WETH), and the test script is located in the script folder.
+
+
+This is implemented as **calculateArbitrage()** function in the smart contract, and used binary method(not a very good function here) to test within the maximum number of liquidation(WETH), and the test script is located in the script folder.
 
 
 
